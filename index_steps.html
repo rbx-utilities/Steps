@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Instructions - JAILBREAK DUPE</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1b0f3b, #24104f, #162b7a);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .language-switcher {
+            position: fixed;
+            top: 30px;
+            right: 40px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 10px 20px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .lang-label {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.5;
+            transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+            padding: 0;
+        }
+
+        .lang-label img {
+            width: 32px;
+            height: 32px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .lang-label.active {
+            opacity: 1;
+            transform: scale(1.15);
+            box-shadow: 0 0 20px rgba(122, 255, 255, 0.4);
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider-toggle {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.2);
+            transition: 0.3s;
+            border-radius: 34px;
+        }
+
+        .slider-toggle:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background: linear-gradient(135deg, #7a2be2, #4b6cff);
+            transition: 0.3s;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        input:checked + .slider-toggle {
+            background: rgba(122, 255, 255, 0.3);
+        }
+
+        input:checked + .slider-toggle:before {
+            transform: translateX(26px);
+            background: linear-gradient(135deg, #2be2a7, #4bffc6);
+        }
+
+        .title-main {
+            margin-top: 40px;
+            margin-bottom: 30px;
+            font-size: 72px;
+            font-weight: 900;
+            letter-spacing: 6px;
+            text-align: center;
+            text-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.65),
+                0 0 40px rgba(122, 43, 226, 0.25);
+        }
+
+        .subtitle {
+            font-size: 24px;
+            font-weight: 300;
+            opacity: 0.8;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .container {
+            width: 70vw;
+            max-width: 1100px;
+            min-width: 600px;
+            padding: 50px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(16px);
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.55),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            margin-bottom: 40px;
+        }
+
+        .step {
+            margin-bottom: 40px;
+            padding: 30px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border-left: 4px solid #7a2be2;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .step:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #7a2be2, #4b6cff);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: 800;
+            font-size: 18px;
+            margin-right: 15px;
+            box-shadow: 0 8px 20px rgba(122, 43, 226, 0.4);
+        }
+
+        .step-title {
+            display: inline-block;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #7affff;
+        }
+
+        .step-content {
+            font-size: 16px;
+            line-height: 1.8;
+            opacity: 0.9;
+            margin-left: 55px;
+        }
+
+        .screenshot-container {
+            margin: 20px 0 0 0;
+            padding: 0;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+            border: 3px solid rgba(122, 255, 255, 0.25);
+            max-width: 95%;
+        }
+
+        .screenshot-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .warning {
+            padding: 25px;
+            border-radius: 16px;
+            background: rgba(255, 100, 100, 0.1);
+            border: 2px solid rgba(255, 100, 100, 0.3);
+            margin: 30px 0;
+        }
+
+        .warning-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+
+        .warning-content {
+            font-size: 15px;
+            line-height: 1.7;
+            opacity: 0.9;
+        }
+
+        button {
+            padding: 14px 46px;
+            border: none;
+            border-radius: 40px;
+            background: linear-gradient(135deg, #7a2be2, #4b6cff);
+            color: white;
+            font-size: 17px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.5);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+        }
+
+        .btn-back {
+            background: linear-gradient(135deg, #2be2a7, #4bffc6) !important;
+        }
+
+        .buttons-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 900px) {
+            .title-main {
+                font-size: 48px;
+                letter-spacing: 3px;
+            }
+
+            .container {
+                width: 90vw;
+                min-width: unset;
+                padding: 30px;
+            }
+
+            .step-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="language-switcher">
+    <span class="lang-label" data-lang="es">
+        <img src="https://flagcdn.com/es.svg" alt="Español">
+    </span>
+    <label class="switch">
+        <input type="checkbox" id="langToggle">
+        <span class="slider-toggle"></span>
+    </label>
+    <span class="lang-label" data-lang="en">
+        <img src="https://flagcdn.com/us.svg" alt="English">
+    </span>
+</div>
+
+<div class="title-main" data-en="INSTRUCTIONS" data-es="INSTRUCCIONES">INSTRUCTIONS</div>
+<div class="subtitle" data-en="How to use JAILBREAK DUPE" data-es="Cómo usar JAILBREAK DUPE">How to use JAILBREAK DUPE</div>
+
+<div class="container">
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <span class="step-title" data-en="Open Roblox Jailbreak" data-es="Abrir Roblox Jailbreak">Open Roblox Jailbreak</span>
+        <div class="step-content" data-en="Go to the <strong>Roblox page</strong> and open the <strong>Jailbreak</strong> game page." data-es="Ve a la <strong>página de Roblox</strong> y abre la página del juego <strong>Jailbreak</strong>.">
+            Go to the <strong>Roblox page</strong> and open the <strong>Jailbreak</strong> game page.
+        </div>
+        <div class="screenshot-container">
+            <img src="01.png" alt="Jailbreak page on Roblox">
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">2</span>
+        <span class="step-title" data-en="Open Developer Tools" data-es="Abrir Herramientas de Desarrollador">Open Developer Tools</span>
+        <div class="step-content" data-en="<strong>Right-click</strong> on any empty space (any gray or white space, depending on your background color) and select <strong>'Inspect'</strong> (or press F12)." data-es="Haz <strong>click derecho</strong> en cualquier espacio vacío (cualquier espacio gris o blanco, dependiendo del color de fondo que tengas personalizado) y selecciona <strong>'Inspeccionar'</strong> (o presiona F12).">
+            <strong>Right-click</strong> on any empty space (any gray or white space, depending on your background color) and select <strong>"Inspect"</strong> (or press F12).
+        </div>
+        <div class="screenshot-container">
+            <img src="02.png" alt="Context menu showing Inspect">
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">3</span>
+        <span class="step-title" data-en="Go to Network Tab" data-es="Ir a la Pestaña Network">Go to Network Tab</span>
+        <div class="step-content" data-en="In the developer tools, click on the <strong>'Network'</strong> tab. Then <strong>refresh the page</strong> (F5 or Ctrl+R)." data-es="En las herramientas de desarrollador, haz click en la pestaña <strong>'Network'</strong>. Luego <strong>actualiza la página</strong> (F5 o Ctrl+R).">
+            In the developer tools, click on the <strong>"Network"</strong> tab. Then <strong>refresh the page</strong> (F5 or Ctrl+R).
+        </div>
+        <div class="screenshot-container">
+            <img src="03.png" alt="Network tab in DevTools">
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">4</span>
+        <span class="step-title" data-en="Find the Jailbreak Request" data-es="Buscar el Request de Jailbreak">Find the Jailbreak Request</span>
+        <div class="step-content" data-en="In the list on the right, <strong>scroll to the top</strong> and look for something that says <strong>'Jailbreak'</strong> with a <strong>blue icon</strong>." data-es="En la lista de la derecha, <strong>sube hasta arriba</strong> y busca algo que diga <strong>'Jailbreak'</strong> con un <strong>icono azul</strong>.">
+            In the list on the right, <strong>scroll to the top</strong> and look for something that says <strong>"Jailbreak"</strong> with a <strong>blue icon</strong>.
+        </div>
+        <div class="screenshot-container">
+            <img src="04.png" alt="Network list showing Jailbreak request">
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">5</span>
+        <span class="step-title" data-en="Copy as PowerShell" data-es="Copiar como PowerShell">Copy as PowerShell</span>
+        <div class="step-content" data-en="<strong>Right-click</strong> on the Jailbreak request → <strong>Copy</strong> → <strong>Copy as PowerShell</strong>." data-es="Haz <strong>click derecho</strong> en el request de Jailbreak → <strong>Copiar</strong> → <strong>Copiar como PowerShell</strong>.">
+            <strong>Right-click</strong> on the Jailbreak request → <strong>Copy</strong> → <strong>Copy as PowerShell</strong>.
+        </div>
+        <div class="screenshot-container">
+            <img src="05.png" alt="Context menu with Copy as PowerShell">
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">6</span>
+        <span class="step-title" data-en="Paste the Code" data-es="Pegar el Código">Paste the Code</span>
+        <div class="step-content" data-en="Go back to the <strong>JAILBREAK DUPE</strong> main page and paste all the code into the textbox." data-es="Regresa a la página principal de <strong>JAILBREAK DUPE</strong> y pega el código completo en el cuadro de texto.">
+            Go back to the <strong>JAILBREAK DUPE</strong> main page and paste all the code into the editor.
+        </div>
+        <div class="screenshot-container">
+            <img src="06.png" alt="Editor with pasted code">
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">7</span>
+        <span class="step-title" data-en="Process" data-es="Procesar">Process</span>
+        <div class="step-content" data-en="Click the <strong>PROCESS</strong> button and wait for the confirmation message. If you see an error, make sure you copied all the code correctly. Wait <strong>8 to 15 minutes</strong> for the changes to be reflected in the game, in the meantime you can play whatever you want." data-es="Haz click en el botón <strong>PROCESAR</strong> y espera el mensaje de confirmación. Si ves un error, asegúrate de haber copiado todo el código correctamente. Espera de <strong>8 a 15 minutos</strong> para que los cambios se vean reflejados en el juego, mientras tanto puedes jugar a lo que quieras.">
+            Click the <strong>PROCESS</strong> button and wait for the confirmation message. If you see an error, make sure you copied all the code correctly. Wait <strong>8 to 15 minutes</strong> for the changes to be reflected in the game, in the meantime you can play whatever you want.
+        </div>
+        <div class="screenshot-container">
+            <img src="07.png" alt="Success message">
+        </div>
+    </div>
+
+    <div class="warning">
+        <div class="warning-title" data-en="⚠️ Important Notes" data-es="⚠️ Notas Importantes">⚠️ Important Notes</div>
+        <div class="warning-content" data-en="• Make sure to copy ALL the code from the Jailbreak<br>• Do not share this procedure with unauthorized people<br>• If the PROCESS button doesn't work, verify you copied correctly" data-es="• Asegúrate de copiar TODO el código de PowerShell completo<br>• El código debe tener más de 5000 líneas para ser procesado<br>• No compartas este procedimiento con personas no autorizadas<br>• Si el botón PROCESS no funciona, verifica que copiaste correctamente">
+            • Make sure to copy ALL the complete PowerShell code<br>
+            • Do not share this procedure with unauthorized people<br>
+            • If the PROCESS button doesn't work, verify you copied correctly
+        </div>
+    </div>
+
+    <div class="buttons-container">
+        <button class="btn-back" onclick="window.location.href='index.html'">
+            <span data-en="← BACK TO MAIN" data-es="← VOLVER AL INICIO">← BACK TO MAIN</span>
+        </button>
+    </div>
+
+</div>
+
+</body>
+</html>
+<script>
+    const langToggle = document.getElementById('langToggle');
+    const langLabels = document.querySelectorAll('.lang-label');
+    
+    // Cargar idioma guardado o usar inglés por defecto
+    let currentLang = localStorage.getItem('language') || 'en';
+    
+    // Establecer estado inicial
+    if (currentLang === 'es') {
+        langToggle.checked = false;
+        langLabels[0].classList.add('active');
+        langLabels[1].classList.remove('active');
+    } else {
+        langToggle.checked = true;
+        langLabels[1].classList.add('active');
+        langLabels[0].classList.remove('active');
+    }
+    
+    // Aplicar idioma inicial
+    updateLanguage(currentLang);
+    
+    // Cambiar idioma al hacer click en el toggle
+    langToggle.addEventListener('change', function() {
+        currentLang = this.checked ? 'en' : 'es';
+        updateLanguage(currentLang);
+        localStorage.setItem('language', currentLang);
+        
+        // Actualizar labels activos
+        if (currentLang === 'en') {
+            langLabels[1].classList.add('active');
+            langLabels[0].classList.remove('active');
+        } else {
+            langLabels[0].classList.add('active');
+            langLabels[1].classList.remove('active');
+        }
+    });
+    
+    // Permitir click en los labels
+    langLabels.forEach((label, index) => {
+        label.addEventListener('click', () => {
+            langToggle.checked = index === 1;
+            langToggle.dispatchEvent(new Event('change'));
+        });
+    });
+    
+    function updateLanguage(lang) {
+        document.querySelectorAll('[data-en]').forEach(element => {
+            const text = element.getAttribute('data-' + lang);
+            if (element.tagName === 'DIV' || element.tagName === 'SPAN') {
+                element.innerHTML = text;
+            } else {
+                element.textContent = text;
+            }
+        });
+    }
+</script>
